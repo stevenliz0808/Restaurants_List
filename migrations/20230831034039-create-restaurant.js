@@ -2,24 +2,49 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Restaurants', {
+    await queryInterface.createTable("Restaurants", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       name: {
-        type: Sequelize.STRING
-      },
-      createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.STRING,
       },
-      updatedAt: {
+      name_en: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.STRING,
+      },
+      category: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
+      image: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
+      location: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
+      phone: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
+      google_map: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
+      rating: {
+        allowNull: false,
+        type: Sequelize.DECIMAL,
+      },
+      description: {
+        allowNull: false,
+        type: Sequelize.TEXT,
+      },
     });
   },
   async down(queryInterface, Sequelize) {
