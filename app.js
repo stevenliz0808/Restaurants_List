@@ -1,8 +1,12 @@
 const express = require("express");
-const { engine } = require("express-handlebars");
 const app = express();
+
+const db = require("./models")
+const Restaurant = db.Restaurant
+
+const { engine } = require("express-handlebars");
+
 const port = 3000;
-const restaurants = require("./public/jsons/restaurant.json").results;
 
 app.engine("hbs", engine({ extname: "hbs" }));
 app.set("view engine", "hbs");
@@ -15,18 +19,10 @@ app.get("/", (req, res) => {
 });
 
 app.get("/restaurants", (req, res) => {
-  const keyword = req.query.keyword;
-  const filteredRestaurants = keyword
-    ? restaurants.filter((restaurant) =>
-        Object.values(restaurant).some((property) => {
-          if (typeof property === 'string') {
-            return property.toLowerCase().includes(keyword.toLowerCase());
-          }
-          return false
-        })
-      )
-    : restaurants;
-  res.render("index", { restaurants: filteredRestaurants, keyword });
+  // const keyword = req.query.keyword;
+  return Restaurant.findAll()
+    .then((restaurants) => res.send({restaurants}))
+    .catch((err) => res.status(422).json(err))
 });
 
 app.get("/restaurants/:id", (req, res) => {
