@@ -1,8 +1,8 @@
 const express = require("express");
 const app = express();
 
-const db = require("./models");
-const Restaurant = db.Restaurant;
+const db = require("./models")
+const Restaurant = db.Restaurant
 
 const { engine } = require("express-handlebars");
 
@@ -21,8 +21,8 @@ app.get("/", (req, res) => {
 app.get("/restaurants", (req, res) => {
   // const keyword = req.query.keyword;
   return Restaurant.findAll()
-    .then((restaurants) => res.send({ restaurants }))
-    .catch((err) => res.status(422).json(err));
+    .then((restaurants) => res.send({restaurants}))
+    .catch((err) => res.status(422).json(err))
 });
 
 app.get("/restaurants/:id", (req, res) => {
@@ -31,6 +31,29 @@ app.get("/restaurants/:id", (req, res) => {
     (restaurant) => restaurant.id.toString() === id
   );
   res.render("show", { restaurant });
+});
+
+app.get("/restaurants/new", (req, res) => {
+  res.send(`create new one`);
+});
+
+app.post("/restaurants", (req, res) => {
+  res.send("create successfully");
+});
+
+app.get("/restaurants/:id/edit", (req, res) => {
+  const id = req.params.id;
+  res.send(`edit ${id}`);
+});
+
+app.put("/restaurants/:id", (req, res) => {
+  const id = req.params.id;
+  res.send(`update ${id}`);
+});
+
+app.delete("/restaurants/:id", (req, res) => {
+  const id = req.params.id;
+  res.send(`delete ${id}`);
 });
 
 app.listen(port, () => {
