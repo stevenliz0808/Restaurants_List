@@ -1,8 +1,8 @@
 const express = require("express");
 const app = express();
 
-const db = require("./models")
-const Restaurant = db.Restaurant
+const db = require("./models");
+const Restaurant = db.Restaurant;
 
 const { engine } = require("express-handlebars");
 
@@ -20,9 +20,23 @@ app.get("/", (req, res) => {
 
 app.get("/restaurants", (req, res) => {
   // const keyword = req.query.keyword;
-  return Restaurant.findAll()
-    .then((restaurants) => res.send({restaurants}))
-    .catch((err) => res.status(422).json(err))
+  return Restaurant.findAll({
+    attributes: [
+      `id`,
+      `name`,
+      `name_en`,
+      `category`,
+      `image`,
+      `location`,
+      `phone`,
+      `google_map`,
+      `rating`,
+      `description`,
+    ],
+    raw: true,
+  })
+    .then((restaurants) => res.render("index", { restaurants }))
+    .catch((err) => res.status(422).json(err));
 });
 
 app.get("/restaurants/:id", (req, res) => {
