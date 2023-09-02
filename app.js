@@ -76,10 +76,23 @@ app.get("/restaurants", (req, res) => {
 
 app.get("/restaurants/:id", (req, res) => {
   const id = req.params.id;
-  const restaurant = restaurants.find(
-    (restaurant) => restaurant.id.toString() === id
-  );
-  res.render("show", { restaurant });
+  return Restaurant.findByPk(id, {
+    attributes: [
+      `id`,
+      `name`,
+      `name_en`,
+      `category`,
+      `image`,
+      `location`,
+      `phone`,
+      `google_map`,
+      `rating`,
+      `description`,
+    ],
+    raw: true,
+  })
+    .then((restaurant) => res.render("show", { restaurant }))
+    .catch((err) => res.status(422).json(err));
 });
 
 app.get("/restaurants/new", (req, res) => {
