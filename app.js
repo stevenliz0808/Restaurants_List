@@ -3,6 +3,7 @@ const app = express();
 
 const db = require("./models");
 const Restaurant = db.Restaurant;
+const { Op } = require("sequelize");
 
 const { engine } = require("express-handlebars");
 
@@ -19,24 +20,58 @@ app.get("/", (req, res) => {
 });
 
 app.get("/restaurants", (req, res) => {
-  // const keyword = req.query.keyword;
-  return Restaurant.findAll({
-    attributes: [
-      `id`,
-      `name`,
-      `name_en`,
-      `category`,
-      `image`,
-      `location`,
-      `phone`,
-      `google_map`,
-      `rating`,
-      `description`,
-    ],
-    raw: true,
-  })
-    .then((restaurants) => res.render("index", { restaurants }))
-    .catch((err) => res.status(422).json(err));
+  const keyword = req.query.keyword;
+  const restaurantAttributes = [
+    "name",
+    "name_en",
+    "category",
+    "location",
+    "description",
+  ];
+  if (!keyword) {
+    return Restaurant.findAll({
+      attributes: [
+        `id`,
+        `name`,
+        `name_en`,
+        `category`,
+        `image`,
+        `location`,
+        `phone`,
+        `google_map`,
+        `rating`,
+        `description`,
+      ],
+      raw: true,
+    })
+      .then((restaurants) => res.render("index", { restaurants }))
+      .catch((err) => res.status(422).json(err));
+  } else {
+    return Restaurant.findAll({
+      attributes: [
+        `id`,
+        `name`,
+        `name_en`,
+        `category`,
+        `image`,
+        `location`,
+        `phone`,
+        `google_map`,
+        `rating`,
+        `description`,
+      ],
+      raw: true,
+      where: {
+        [Op.or]: restaurantAttributes.map((attribute) => ({
+          [attribute]: {
+            [Op.like]: `%${keyword}%`,
+          },
+        })),
+      },
+    })
+      .then((restaurants) => res.render("index", { restaurants }))
+      .catch((err) => res.status(422).json(err));
+  }
 });
 
 app.get("/restaurants/:id", (req, res) => {
