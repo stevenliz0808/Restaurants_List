@@ -20,8 +20,10 @@ module.exports = (sequelize, DataTypes) => {
       location: DataTypes.STRING,
       phone: DataTypes.STRING,
       google_map: DataTypes.STRING,
-      rating: DataTypes.NUMBER,
+      rating: DataTypes.DECIMAL(2, 1),
       description: DataTypes.TEXT,
+      createdAt: DataTypes.DATE,
+      updatedAt: DataTypes.DATE,
     },
     {
       sequelize,

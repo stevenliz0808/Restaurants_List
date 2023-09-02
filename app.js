@@ -14,6 +14,7 @@ app.set("view engine", "hbs");
 app.set("views", "./views");
 
 app.use(express.static("public"));
+app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
   res.redirect("/restaurants");
@@ -74,6 +75,10 @@ app.get("/restaurants", (req, res) => {
   }
 });
 
+app.get("/restaurants/new", (req, res) => {
+  res.render("new");
+});
+
 app.get("/restaurants/:id", (req, res) => {
   const id = req.params.id;
   return Restaurant.findByPk(id, {
@@ -95,12 +100,32 @@ app.get("/restaurants/:id", (req, res) => {
     .catch((err) => res.status(422).json(err));
 });
 
-app.get("/restaurants/new", (req, res) => {
-  res.send(`create new one`);
-});
-
 app.post("/restaurants", (req, res) => {
-  res.send("create successfully");
+  const {
+    name,
+    name_en,
+    category,
+    image,
+    location,
+    phone,
+    google_map,
+    rating,
+    description,
+  } = req.body;
+
+  return Restaurant.create({
+    name,
+    name_en,
+    category,
+    image,
+    location,
+    phone,
+    google_map,
+    rating,
+    description,
+  })
+    .then(() => res.redirect("/restaurants"))
+    .catch((err) => res.status(422).json(err));
 });
 
 app.get("/restaurants/:id/edit", (req, res) => {
