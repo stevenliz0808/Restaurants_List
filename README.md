@@ -4,7 +4,7 @@
 
 ## 畫面
 
-![image](https://github.com/stevenliz0808/Restaurants_List/tree/main/public/img/homepage.png)
+![image](https://github.com/stevenliz0808/Restaurants_List/blob/main/public/img/homepage.png)
 
 ## 功能
 
