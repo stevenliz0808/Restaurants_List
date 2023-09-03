@@ -184,7 +184,11 @@ app.put("/restaurants/:id", (req, res) => {
 
 app.delete("/restaurants/:id", (req, res) => {
   const id = req.params.id;
-  return Restaurant.update()
+  return Restaurant.destroy({
+    where: { id },
+  })
+    .then(() => res.redirect("/restaurants"))
+    .catch((err) => res.status(422).json(err));
 });
 
 app.listen(port, () => {

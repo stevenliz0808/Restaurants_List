@@ -52,7 +52,7 @@
                 </span>
                 <div class="d-flex justify-content-end mt-2">
                   <a href="/restaurants/{{this.id}}/edit" class="fas fa-pen mx-2 "></a>
-                  <form action="/restaurants/{{this.id}}">
+                  <form action="/restaurants/{{this.id}}?_method=DELETE" method="post">
                     <button class="fas fa-trash" type="submit"></button>
                   </form>
                 </div>
