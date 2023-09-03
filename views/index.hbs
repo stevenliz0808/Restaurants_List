@@ -30,7 +30,8 @@
     <div class="col-md-10 col-12 mx-auto">
       <div class="row row-cols-sm-3">
         {{#each restaurants}}
-          <a href="/restaurants/{{this.id}}" class="text-secondary">
+          <div>
+            <a href="/restaurants/{{this.id}}" class="text-secondary">
             <div class="card mb-3">
               <img
                 class="card-img-top"
@@ -49,9 +50,16 @@
                   {{this.rating}}
                   <i class="fas fa-star fa-xs"></i>
                 </span>
+                <div class="d-flex justify-content-end mt-2">
+                  <a href="/restaurants/{{this.id}}/edit" class="fas fa-pen mx-2 "></a>
+                  <form action="/restaurants/{{this.id}}">
+                    <button class="fas fa-trash" type="submit"></button>
+                  </form>
+                </div>
               </div>
             </div>
           </a>
+          </div>
         {{/each}}
       </div>
     </div>
