@@ -20,6 +20,7 @@
             aria-label="Default select example"
             name="sort"
           >
+            <option value="0" disabled>排序:</option>
             <option value="name">名稱</option>
             <option value="location">地區</option>
             <option value="category">分類</option>
@@ -82,3 +83,8 @@
     </div>
   </div>
 </div>
+
+<script>
+  const sortSelect = document.querySelector("#sort")
+  sortSelect.value = '{{sort}}' || '0'
+</script>
