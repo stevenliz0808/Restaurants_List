@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -10,40 +10,40 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       name: {
-        allowNull: true,
+        allowNull: false,
         type: Sequelize.STRING,
       },
       name_en: {
-        allowNull: true,
+        allowNull: false,
         type: Sequelize.STRING,
       },
       category: {
-        allowNull: true,
+        allowNull: false,
         type: Sequelize.STRING,
       },
       image: {
-        allowNull: true,
+        allowNull: false,
         type: Sequelize.STRING,
       },
       location: {
-        allowNull: true,
+        allowNull: false,
         type: Sequelize.STRING,
       },
       phone: {
-        allowNull: true,
+        allowNull: false,
         type: Sequelize.STRING,
       },
       google_map: {
-        allowNull: true,
+        allowNull: false,
         type: Sequelize.STRING,
       },
       rating: {
-        allowNull: true,
+        allowNull: false,
         type: Sequelize.DECIMAL,
-        defaultValue: 0
+        defaultValue: 0,
       },
       description: {
-        allowNull: true,
+        allowNull: false,
         type: Sequelize.TEXT,
       },
       createdAt: {
@@ -55,6 +55,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Restaurants');
-  }
+    await queryInterface.dropTable("Restaurants");
+  },
 };

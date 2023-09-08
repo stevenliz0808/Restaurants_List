@@ -55,7 +55,7 @@ router.get("/", (req, res) => {
       },
     })
       .then((restaurants) => res.render("index", { restaurants }))
-      .catch((err) => res.status(422).json(err));
+      .catch((err) => console(err));
   }
 });
 
@@ -97,19 +97,24 @@ router.post("/", (req, res) => {
     description,
   } = req.body;
 
-  return Restaurant.create({
-    name,
-    name_en,
-    category,
-    image,
-    location,
-    phone,
-    google_map,
-    rating,
-    description,
-  })
-    .then(() => res.redirect("/restaurants"))
-    .catch((err) => res.status(422).json(err));
+  if (!name) {
+    return res.status(400).json({message: '不能空白'})
+  }
+  else {
+    return Restaurant.create({
+      name,
+      name_en,
+      category,
+      image,
+      location,
+      phone,
+      google_map,
+      rating,
+      description,
+    })
+      .then(() => res.redirect("/restaurants"))
+      .catch((err) => res.status(422).json(err));
+  }
 });
 
 router.get("/:id/edit", (req, res) => {
