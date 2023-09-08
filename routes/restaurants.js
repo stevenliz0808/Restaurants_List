@@ -1,11 +1,14 @@
 const express = require("express");
 const router = express.Router();
 
+const { Op } = require("sequelize");
+
 const db = require("../models");
 const Restaurant = db.Restaurant;
 
 router.get("/", (req, res) => {
   const keyword = req.query.keyword;
+  const sort = req.query.sort
   const restaurantAttributes = [
     "name",
     "name_en",
@@ -28,8 +31,9 @@ router.get("/", (req, res) => {
         `description`,
       ],
       raw: true,
+      order: [sort? `${sort}` : 'name']
     })
-      .then((restaurants) => res.render("index", { restaurants }))
+      .then((restaurants) => res.render("index", { restaurants, sort}))
       .catch((err) => res.status(422).json(err));
   } else {
     return Restaurant.findAll({
@@ -53,8 +57,9 @@ router.get("/", (req, res) => {
           },
         })),
       },
+      order: [sort? `${sort}` : 'name']
     })
-      .then((restaurants) => res.render("index", { restaurants }))
+      .then((restaurants) => res.render("index", { restaurants, keyword, sort}))
       .catch((err) => console(err));
   }
 });

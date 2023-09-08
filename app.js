@@ -1,9 +1,6 @@
 const express = require("express");
 const app = express();
 
-
-const { Op } = require("sequelize");
-
 const { engine } = require("express-handlebars");
 const methodOverride = require("method-override");
 const router = require("./routes");
