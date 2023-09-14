@@ -1,9 +1,18 @@
 const express = require("express");
 const app = express();
 
+if (process.env.NODE_ENV === 'development') {
+  require('dotenv').config()
+}
+
 const { engine } = require("express-handlebars");
 const methodOverride = require("method-override");
+const flash = require("connect-flash");
+const session = require("express-session");
 const router = require("./routes");
+
+const messageHandler = require('./midlewares/message-handler')
+const errorHandler =require('./midlewares/error-handler')
 
 const port = 3000;
 
@@ -13,9 +22,23 @@ app.set("views", "./views");
 
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
-app.use(methodOverride('_method'))
+app.use(methodOverride("_method"));
 
-app.use(router)
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+
+app.use(flash())
+
+app.use(messageHandler)
+
+app.use(router);
+
+app.use(errorHandler)
 
 app.listen(port, () => {
   console.log(`http://localhost:${port}`);

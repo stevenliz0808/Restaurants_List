@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="/stylesheets/bootstrap.min.css" />
-    <link rel="stylesheet" href="/stylesheets/index.css">
+    <link rel="stylesheet" href="/stylesheets/index.css" />
     <title>Restaurant List</title>
   </head>
   <body>
@@ -20,7 +20,14 @@
             />
             我的餐廳清單
           </a>
-          <a class="btn btn-outline-secondary btn-sm" href="/restaurants/new" role="button">新增餐廳</a>
+          <a
+            class="btn btn-outline-secondary btn-sm"
+            href="/restaurants/new"
+            role="button"
+          >新增餐廳</a>
+          <form action="/logout" method="post">
+          <button type="submit" class="btn btn-secondary btn-sm">登出</button>
+        </form>
         </div>
       </nav>
 
@@ -28,6 +35,9 @@
     </header>
     {{{body}}}
     <script src="/javascripts/bootstrap.bundle.min.js"></script>
-    <script src="https://kit.fontawesome.com/530ac1acb9.js" crossorigin="anonymous"></script>
+    <script
+      src="https://kit.fontawesome.com/530ac1acb9.js"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>

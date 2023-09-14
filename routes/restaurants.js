@@ -7,7 +7,7 @@ const db = require("../models");
 const Restaurant = db.Restaurant;
 
 router.get("/", (req, res) => {
-  const keyword = req.query.keyword;
+  const keyword = req.query.keyword || '';
   const sort = req.query.sort
   const restaurantAttributes = [
     "name",
@@ -16,26 +16,6 @@ router.get("/", (req, res) => {
     "location",
     "description",
   ];
-  if (!keyword) {
-    return Restaurant.findAll({
-      attributes: [
-        `id`,
-        `name`,
-        `name_en`,
-        `category`,
-        `image`,
-        `location`,
-        `phone`,
-        `google_map`,
-        `rating`,
-        `description`,
-      ],
-      raw: true,
-      order: [sort? `${sort}` : 'name']
-    })
-      .then((restaurants) => res.render("index", { restaurants, sort}))
-      .catch((err) => res.status(422).json(err));
-  } else {
     return Restaurant.findAll({
       attributes: [
         `id`,
@@ -61,7 +41,6 @@ router.get("/", (req, res) => {
     })
       .then((restaurants) => res.render("index", { restaurants, keyword, sort}))
       .catch((err) => console(err));
-  }
 });
 
 router.get("/new", (req, res) => {
