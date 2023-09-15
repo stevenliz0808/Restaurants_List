@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 
+const passport = require('passport')
+
 if (process.env.NODE_ENV === 'development') {
   require('dotenv').config()
 }
@@ -12,7 +14,7 @@ const session = require("express-session");
 const router = require("./routes");
 
 const messageHandler = require('./midlewares/message-handler')
-const errorHandler =require('./midlewares/error-handler')
+const errorHandler =require('./midlewares/error-handler');
 
 const port = 3000;
 
@@ -33,6 +35,9 @@ app.use(
 );
 
 app.use(flash())
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(messageHandler)
 

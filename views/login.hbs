@@ -2,17 +2,18 @@
 <div class="w-25">
   <form action="/login" method="post">
     <div class="mb-3">
-      <label for="name" class="form-label">帳號:</label>
+      <label for="username" class="form-label">帳號:</label>
       <input
         type="text"
         class="form-control"
-        id="name"
+        id="username"
+        name="username"
         required
       />
     </div>
     <div class="mb-3">
       <label for="password" class="form-label">密碼:</label>
-      <input type="password" class="form-control" id="password" required/>
+      <input type="password" class="form-control" id="password" name="password" required/>
     </div>
     <button type="submit" class="btn btn-primary">登入</button>
   </form>
