@@ -1,5 +1,5 @@
 {{> message}}
-<div class="w-25">
+<div class="d-flex justify-content-center">
   <form action="/login" method="post">
     <div class="mb-3">
       <label for="username" class="form-label">帳號:</label>
@@ -16,7 +16,6 @@
       <input type="password" class="form-control" id="password" name="password" required/>
     </div>
     <button type="submit" class="btn btn-primary">登入</button>
+    <div class="mt-5">尚未註冊? <a href="/register">按此註冊</a></div>
   </form>
-  <span>尚未註冊?</span>
-  <a href="/register">按此註冊</a>
 </div>
