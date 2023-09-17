@@ -114,7 +114,9 @@ router.post("/", (req, res, next) => {
       description,
       userId,
     })
-      .then(() => res.redirect("/restaurants"))
+      .then(() => {
+        req.flash("success", "新增成功");
+        res.redirect("/restaurants")})
       .catch((err) => next(err));
   }
 });
@@ -169,7 +171,9 @@ router.put("/:id", (req, res, next) => {
       where: { id },
     }
   )
-    .then(() => res.redirect("/restaurants"))
+    .then(() => {
+      req.flash('success', '修改成功')
+      res.redirect("/restaurants")})
     .catch((err) => next(err));
 });
 
@@ -178,7 +182,9 @@ router.delete("/:id", (req, res) => {
   return Restaurant.destroy({
     where: { id },
   })
-    .then(() => res.redirect("/restaurants"))
+    .then(() => {
+      req.flash("success", "刪除成功");
+      res.redirect("/restaurants")})
     .catch((err) => res.status(422).json(err));
 });
 
