@@ -1,8 +1,6 @@
 const express = require("express");
 const app = express();
 
-const passport = require('passport')
-
 if (process.env.NODE_ENV === 'development') {
   require('dotenv').config()
 }
@@ -12,6 +10,7 @@ const methodOverride = require("method-override");
 const flash = require("connect-flash");
 const session = require("express-session");
 const router = require("./routes");
+const passport = require('./config/passport')
 
 const messageHandler = require('./midlewares/message-handler')
 const errorHandler =require('./midlewares/error-handler');
