@@ -25,11 +25,11 @@ passport.use(
           if (!isMatch) {
             return done(null, false, { message: "密碼錯誤" });
           }
-          return done(null, user);
+          return done(null, user, { message: "登入成功" });
         });
       })
       .catch((error) => {
-        error.message = "登入失敗";
+        error.message = "系統錯誤，登入失敗";
         done(error);
       });
   })
